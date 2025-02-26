@@ -2,7 +2,76 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<br/>
+<h1>Task Manager</h1>
+<br/>
+<br/>
+
+<a href="#" class="add-task-button">+ Add Task</a>
+
+<!-- Quadrant Layout -->
+<div class="quadrant-container">
+    <!-- Quadrant I: Important / Urgent -->
+    <div class="quadrant top-left">
+        <h2>Quadrant I: Important / Urgent</h2>
+    </div>
+
+    <!-- Quadrant II: Important / Not Urgent -->
+    <div class="quadrant top-right">
+        <h2>Quadrant II: Important / Not Urgent</h2>
+    </div>
+
+    <!-- Quadrant III: Not Important / Urgent -->
+    <div class="quadrant bottom-left">
+        <h2>Quadrant III: Not Important / Urgent</h2>
+    </div>
+
+    <!-- Quadrant IV: Not Important / Not Urgent -->
+    <div class="quadrant bottom-right">
+        <h2>Quadrant IV: Not Important / Not Urgent</h2>
+    </div>
 </div>
+
+<!-- CSS for the Four-Square Layout -->
+<style>
+    /* Button Styling */
+    .add-task-button {
+        position: absolute;
+        top: 80px;
+        right: 80px;
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+    .add-task-button:hover {
+        background-color: darkgreen;
+    }
+    
+    .quadrant-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        width: 100%;
+        height: 500px;
+        margin: auto;
+        border: 3px solid #333; /* Outer border */
+    }
+    .quadrant {
+        display: flex;
+        flex-direction: column; /* Stack content vertically */
+        align-items: flex-start; /* Align content to the top */
+        justify-content: flex-start; /* Push everything to the top */
+        text-align: left;
+        padding: 10px; /* Adds space so text isn't touching the edges */
+        border: 1px solid #333;
+        height: 100%;
+        background-color: antiquewhite;
+    }
+    .top-left { border-right: 3px solid #333; border-bottom: 3px solid #333; }
+    .top-right { border-bottom: 3px solid #333; }
+    .bottom-left { border-right: 3px solid #333; }
+</style>
+
