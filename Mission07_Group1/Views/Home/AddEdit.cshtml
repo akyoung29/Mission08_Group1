@@ -1,17 +1,17 @@
 <!--    Not sure which Model is using for AddEdit view page -->
-@model TModel
+@model ToTask
 
 
 <div class="container">
-    <h2>@(Model?.Id == null ? "Add Task" : "Edit Task")</h2>
+    <h2>@(Model?.TaskId == null ? "Add TaskDescription" : "Edit TaskDescription")</h2>
 
     <form asp-action="SaveTask" method="post" class="row g-3">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="TaskId" />
 
         <!-- Task Name -->
         <div class="col-md-6">
             <label class="form-label">Task Name:</label>
-            <input asp-for="TaskName" class="form-control" required />
+            <input asp-for="TaskDescription" class="form-control" required />
         </div>
 
         <!-- Due Date -->
