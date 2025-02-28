@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model ToTask
+
+<h2>Confirm Deletion</h2>
+<h3>@Model.TaskDescription</h3>
+
+<form method="post">
+
+    <!--Include the primary key so the data can pass-->
+    <input type="hidden" asp-for="TaskId" />
+
+    <!--Buttons to delete or return to main page-->
+    <button type="submit" class="btn btn-info">Delete</button>
+    <a class="btn btn-info" asp-controller="Home" asp-action="Index">Back</a>
+</form>
