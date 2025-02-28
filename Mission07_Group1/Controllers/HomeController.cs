@@ -14,7 +14,7 @@ namespace Mission07_Group.Controllers
 
         public HomeController(Mission08_Group1.Models.TasksContext temp)
         {
-            _context = temp ;
+            _context = temp;
         }
 
         // Index Get
@@ -25,35 +25,48 @@ namespace Mission07_Group.Controllers
             return View(toTask);
         }
 
-        // Task Form Get
+        // Add or Edit task get 
         [HttpGet]
-        public IActionResult AddEdit()
+        public IActionResult AddEdit(int? id)
         {
-            ViewBag.Category = _context.Category
-                .OrderBy(x => x.CategoryName)
-                .ToList();
-            return View("AddEdit", new ToTask());
+            // Populate the dropdown list
+            ViewBag.Cateogry = new SelectList(_context.Category, "CategoryId", "CategoryName");
+
+            if (id == null)
+            {
+                return View(new ToTask()); // If no id, return a new task need a task model
+            }
+
+            var task = _context.ToTask.Find(id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return View(task);
         }
 
-        //Task Form Post
+        // Add or Edit task post
         [HttpPost]
-        public IActionResult AddEdit(ToTask response)
+        public IActionResult AddEdit(ToTask task)
         {
             if (ModelState.IsValid)
             {
-                _context.ToTask.Add(response); //Add record to the database
+                if (task.TaskId == 0)
+                {
+                    _context.ToTask.Add(task); // Add new task
+                }
+                else
+                {
+                    _context.ToTask.Update(task); // Update existing task
+                }
                 _context.SaveChanges();
-
-                return View("Confirmation", response);
+                return RedirectToAction("Index");
             }
-            else //If it has invalid data
-            {
-                ViewBag.Category = _context.Category
-                .OrderBy(x => x.CategoryName)
-                .ToList();
 
-                return View(response);
-            }
+            // Repopulate ViewBag in case of validation error
+            ViewBag.Category = new SelectList(_context.Category, "CategoryId", "CategoryName");
+            return View(task);
         }
 
         // TaskDescription Edit Get
@@ -97,50 +110,5 @@ namespace Mission07_Group.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        //// Add or Edit task get 
-        //[HttpGet]
-        //public IActionResult AddEdit(int? id)
-        //{
-        //    // Populate the dropdown list
-        //    ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-
-        //    if (id == null)
-        //    {
-        //        return View(new ToTask()); // If no id, return a new task need a task model
-        //    }
-
-        //    var task = _context.Tasks.Find(id);
-        //    if (task == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(task);
-        //}
-
-        //// Add or Edit task post
-        //[HttpPost]
-        //public IActionResult AddEdit(Task task) // not sure which model is using for add/edit.cshtml
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (task.TaskId == 0)
-        //        {
-        //            _context.Tasks.Add(task); // Add new task
-        //        }
-        //        else
-        //        {
-        //            _context.Tasks.Update(task); // Update existing task
-        //        }
-        //        _context.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    // Repopulate ViewBag in case of validation error
-        //    ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-        //    return View(task);
-        //    }
-
-        }
     }
+}
