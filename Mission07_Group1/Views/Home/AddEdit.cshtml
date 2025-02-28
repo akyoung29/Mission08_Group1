@@ -33,9 +33,9 @@
         <!-- Category Selection -->
         <div class="col-md-6">
             <label class="form-label">Category:</label>
-            <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Cateogry, "CategoryId", "CategoryName"))">
+            <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Category, "CategoryId", "CategoryName"))">
                 <option value="None">Select A Category</option>
-                @foreach (Category c in ViewBag.Cateogry)
+                @foreach (Category c in ViewBag.Category)
                 {
                     <option value="@c.CategoryId">@c.CategoryName</option>
                 }
