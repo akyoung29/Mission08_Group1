@@ -1,4 +1,4 @@
-﻿@model List<Mission08_Group1.Models.Task> 
+﻿@model List<Mission08_Group1.Models.ToTask> 
 
 @{
     ViewData["Title"] = "Home Page";
@@ -20,7 +20,7 @@
             @foreach (var task in Model.Where(t => t.Quadrant == 1 && t.Completed == 0))
             {
                 <li id="task-@task.TaskId">
-                    @task.Task
+                    @task.TaskDescription
                     <div class="button-group">
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
                         <button class="edit-btn" data-id="@task.TaskId">Edit</button>
@@ -37,7 +37,7 @@
             @foreach (var task in Model.Where(t => t.Quadrant == 2 && t.Completed == 0))
             {
                 <li id="task-@task.TaskId">
-                    @task.Task
+                    @task.TaskDescription
                     <div class="button-group">
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
                         <button class="edit-btn" data-id="@task.TaskId">Edit</button>
@@ -54,7 +54,7 @@
             @foreach (var task in Model.Where(t => t.Quadrant == 3 && t.Completed == 0))
             {
                 <li id="task-@task.TaskId">
-                    @task.Task
+                    @task.TaskDescription
                     <div class="button-group">
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
                         <button class="edit-btn" data-id="@task.TaskId">Edit</button>
@@ -71,7 +71,7 @@
             @foreach (var task in Model.Where(t => t.Quadrant == 4 && t.Completed == 0))
             {
                 <li id="task-@task.TaskId">
-                    @task.Task
+                    @task.TaskDescription
                     <div class="button-group">
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
                         <button class="edit-btn" data-id="@task.TaskId">Edit</button>

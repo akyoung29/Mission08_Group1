@@ -25,122 +25,122 @@ namespace Mission07_Group.Controllers
             return View(tasks);
         }
 
-        //// Task Form Get
-        //[HttpGet]
-        //public IActionResult TaskForm()
-        //{
-        //    ViewBag.Categories = _context.Categories
-        //        .OrderBy(x => x.CategoryName)
-        //        .ToList();
-        //    return View("TaskForm", new Task());
-        //}
+        // Task Form Get
+        [HttpGet]
+        public IActionResult TaskForm()
+        {
+            ViewBag.Categories = _context.Categories
+                .OrderBy(x => x.CategoryName)
+                .ToList();
+            return View("TaskForm", new ToTask());
+        }
 
-        ////Task Form Post
-        //[HttpPost]
-        //public IActionResult TaskForm(Task response)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Tasks.Add(response); //Add record to the database
-        //        _context.SaveChanges();
+        //Task Form Post
+        [HttpPost]
+        public IActionResult AddEdit(Task response)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Tasks.Add(response); //Add record to the database
+                _context.SaveChanges();
 
-        //        return View("Confirmation", response);
-        //    }
-        //    else //If it has invalid data
-        //    {
-        //        ViewBag.Categories = _context.Categories
-        //        .OrderBy(x => x.CategoryName)
-        //        .ToList();
+                return View("Confirmation", response);
+            }
+            else //If it has invalid data
+            {
+                ViewBag.Categories = _context.Categories
+                .OrderBy(x => x.CategoryName)
+                .ToList();
 
-        //        return View(response);
-        //    }
-        //}
+                //        return View(response);
+                //    }
+                //}
 
-        //// TaskDescription Edit Get
-        //public IActionResult Edit(int id)
-        //{
-        //    var taskToEdit = _context.Tasks
-        //        .Single(x => x.TaskId == id);
+                //// TaskDescription Edit Get
+                //public IActionResult Edit(int id)
+                //{
+                //    var taskToEdit = _context.Tasks
+                //        .Single(x => x.TaskId == id);
 
-        //    ViewBag.Categories = _context.Categories
-        //        .OrderBy(x => x.CategoryName)
-        //        .ToList();
+                //    ViewBag.Categories = _context.Categories
+                //        .OrderBy(x => x.CategoryName)
+                //        .ToList();
 
-        //    return View("TaskForm", taskToEdit);
-        //}
+                //    return View("TaskForm", taskToEdit);
+                //}
 
-        ////TaskDescription Edit Post
-        //[HttpPost]
-        //public IActionResult Edit(Task form)
-        //{
-        //    _context.Update(form);
-        //    _context.SaveChanges();
+                ////TaskDescription Edit Post
+                //[HttpPost]
+                //public IActionResult Edit(Task form)
+                //{
+                //    _context.Update(form);
+                //    _context.SaveChanges();
 
-        //    return RedirectToAction("Index");
-        //}
+                //    return RedirectToAction("Index");
+                //}
 
-        //// Delete TaskDescription Get
-        //[HttpGet]
-        //public IActionResult Delete(int id)
-        //{
-        //    var taskToDelete = _context.Tasks
-        //        .Single(x => x.TaskId == id);
+                //// Delete TaskDescription Get
+                //[HttpGet]
+                //public IActionResult Delete(int id)
+                //{
+                //    var taskToDelete = _context.Tasks
+                //        .Single(x => x.TaskId == id);
 
-        //    return View("Delete", taskToDelete);
-        //}
+                //    return View("Delete", taskToDelete);
+                //}
 
-        //// Delete TaskDescription Post
-        //[HttpPost]
-        //public IActionResult Delete(Task form)
-        //{
-        //    _context.Tasks.Remove(form);
-        //    _context.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+                //// Delete TaskDescription Post
+                //[HttpPost]
+                //public IActionResult Delete(Task form)
+                //{
+                //    _context.Tasks.Remove(form);
+                //    _context.SaveChanges();
+                //    return RedirectToAction("Index");
+                //}
 
-        //// Add or Edit task get 
-        //[HttpGet]
-        //public IActionResult AddEdit(int? id)
-        //{
-        //    // Populate the dropdown list
-        //    ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+                //// Add or Edit task get 
+                //[HttpGet]
+                //public IActionResult AddEdit(int? id)
+                //{
+                //    // Populate the dropdown list
+                //    ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName");
 
-        //    if (id == null)
-        //    {
-        //        return View(new Task()); // If no id, return a new task need a task model
-        //    }
+                //    if (id == null)
+                //    {
+                //        return View(new Task()); // If no id, return a new task need a task model
+                //    }
 
-        //    var task = _context.Tasks.Find(id);
-        //    if (task == null)
-        //    {
-        //        return NotFound();
-        //    }
+                //    var task = _context.Tasks.Find(id);
+                //    if (task == null)
+                //    {
+                //        return NotFound();
+                //    }
 
-        //    return View(task);
-        //}
+                //    return View(task);
+                //}
 
-        //// Add or Edit task post
-        //[HttpPost]
-        //public IActionResult AddEdit(Task task) // not sure which model is using for add/edit.cshtml
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (task.TaskId == 0)
-        //        {
-        //            _context.Tasks.Add(task); // Add new task
-        //        }
-        //        else
-        //        {
-        //            _context.Tasks.Update(task); // Update existing task
-        //        }
-        //        _context.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+                //// Add or Edit task post
+                //[HttpPost]
+                //public IActionResult AddEdit(Task task) // not sure which model is using for add/edit.cshtml
+                //{
+                //    if (ModelState.IsValid)
+                //    {
+                //        if (task.TaskId == 0)
+                //        {
+                //            _context.Tasks.Add(task); // Add new task
+                //        }
+                //        else
+                //        {
+                //            _context.Tasks.Update(task); // Update existing task
+                //        }
+                //        _context.SaveChanges();
+                //        return RedirectToAction("Index");
+                //    }
 
-        //    // Repopulate ViewBag in case of validation error
-        //    ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-        //    return View(task);
-        //}
+                //    // Repopulate ViewBag in case of validation error
+                //    ViewBag.Categories = new SelectList(_context.Categories, "CategoryId", "CategoryName");
+                //    return View(task);
+                //}
 
-    }
+            }
 }
