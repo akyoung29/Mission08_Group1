@@ -4,7 +4,7 @@
 <div class="container">
     <h2> Task Description</h2>
 
-    <form method="post" class="row g-3">
+    <form asp-controller="Home" asp-action="@(Model.TaskId == 0 ? "AddEdit" : "Edit")" method="post" class="row g-3">
         <input type="hidden" asp-for="TaskId" />
 
         <!-- Task Name -->
@@ -33,9 +33,9 @@
         <!-- Category Selection -->
         <div class="col-md-6">
             <label class="form-label">Category:</label>
-            <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Cateogry, "CategoryId", "CategoryName"))">
+            <select asp-for="CategoryId">
                 <option value="None">Select A Category</option>
-                @foreach (Category c in ViewBag.Cateogry)
+                @foreach (Category c in ViewBag.Category)
                 {
                     <option value="@c.CategoryId">@c.CategoryName</option>
                 }

@@ -73,9 +73,7 @@ namespace Mission07_Group.Controllers
             var taskToEdit = _context.ToTask
                 .Single(x => x.TaskId == id);
 
-            ViewBag.Category = _context.Category
-                .OrderBy(x => x.CategoryName)
-                .ToList();
+            ViewBag.Category = _context.Category;
 
             return View("AddEdit", taskToEdit);
         }
