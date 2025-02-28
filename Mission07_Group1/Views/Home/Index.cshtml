@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Mission08_Group1.Models.Task> 
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -15,105 +17,79 @@
     <div class="quadrant top-left">
         <h2>Quadrant I: Important / Urgent</h2>
         <ul id="quadrant1" class="task-list">
-            <!-- Task with Delete and Edit buttons next to each other -->
-            <li id="task1">
-                Task 1
-                <div class="button-group">
-                    <button class="delete-btn" data-id="1">Delete</button>
-                    <button class="edit-btn" data-id="1">Edit</button>
-                </div>
-            </li>
-            <li id="task2">
-                Task 2
-                <div class="button-group">
-                    <button class="delete-btn" data-id="2">Delete</button>
-                    <button class="edit-btn" data-id="2">Edit</button>
-                </div>
-            </li>
+            @foreach (var task in Model.Where(t => t.Quadrant == 1 && t.Completed == 0))
+            {
+                <li id="task-@task.TaskId">
+                    @task.Task
+                    <div class="button-group">
+                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
+                        <button class="edit-btn" data-id="@task.TaskId">Edit</button>
+                    </div>
+                </li>
+            }
         </ul>
-
     </div>
 
     <!-- Quadrant II: Important / Not Urgent -->
     <div class="quadrant top-right">
         <h2>Quadrant II: Important / Not Urgent</h2>
         <ul id="quadrant2" class="task-list">
-            <!-- Task with Delete and Edit buttons next to each other -->
-            <li id="task1">
-                Task 1
-                <div class="button-group">
-                    <button class="delete-btn" data-id="1">Delete</button>
-                    <button class="edit-btn" data-id="1">Edit</button>
-                </div>
-            </li>
-            <li id="task2">
-                Task 2
-                <div class="button-group">
-                    <button class="delete-btn" data-id="2">Delete</button>
-                    <button class="edit-btn" data-id="2">Edit</button>
-                </div>
-            </li>
+            @foreach (var task in Model.Where(t => t.Quadrant == 2 && t.Completed == 0))
+            {
+                <li id="task-@task.TaskId">
+                    @task.Task
+                    <div class="button-group">
+                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
+                        <button class="edit-btn" data-id="@task.TaskId">Edit</button>
+                    </div>
+                </li>
+            }
         </ul>
-
     </div>
 
     <!-- Quadrant III: Not Important / Urgent -->
     <div class="quadrant bottom-left">
         <h2>Quadrant III: Not Important / Urgent</h2>
         <ul id="quadrant3" class="task-list">
-            <!-- Task with Delete and Edit buttons next to each other -->
-            <li id="task1">
-                Task 1
-                <div class="button-group">
-                    <button class="delete-btn" data-id="1">Delete</button>
-                    <button class="edit-btn" data-id="1">Edit</button>
-                </div>
-            </li>
-            <li id="task2">
-                Task 2
-                <div class="button-group">
-                    <button class="delete-btn" data-id="2">Delete</button>
-                    <button class="edit-btn" data-id="2">Edit</button>
-                </div>
-            </li>
+            @foreach (var task in Model.Where(t => t.Quadrant == 3 && t.Completed == 0))
+            {
+                <li id="task-@task.TaskId">
+                    @task.Task
+                    <div class="button-group">
+                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
+                        <button class="edit-btn" data-id="@task.TaskId">Edit</button>
+                    </div>
+                </li>
+            }
         </ul>
-
     </div>
 
     <!-- Quadrant IV: Not Important / Not Urgent -->
     <div class="quadrant bottom-right">
         <h2>Quadrant IV: Not Important / Not Urgent</h2>
         <ul id="quadrant4" class="task-list">
-            <!-- Task with Delete and Edit buttons next to each other -->
-            <li id="task1">
-                Task 1
-                <div class="button-group">
-                    <button class="delete-btn" data-id="1">Delete</button>
-                    <button class="edit-btn" data-id="1">Edit</button>
-                </div>
-            </li>
-            <li id="task2">
-                Task 2
-                <div class="button-group">
-                    <button class="delete-btn" data-id="2">Delete</button>
-                    <button class="edit-btn" data-id="2">Edit</button>
-                </div>
-            </li>
+            @foreach (var task in Model.Where(t => t.Quadrant == 4 && t.Completed == 0))
+            {
+                <li id="task-@task.TaskId">
+                    @task.Task
+                    <div class="button-group">
+                        <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
+                        <button class="edit-btn" data-id="@task.TaskId">Edit</button>
+                    </div>
+                </li>
+            }
         </ul>
-
     </div>
 </div>
 
-<!-- CSS for the Four-Square Layout -->
+<!-- Your existing CSS -->
 <style>
     /* Style for the tasks */
     .task-list li {
-        font-family: 'Arial', sans-serif;   /* Example font */
-        font-size: 18px;                    /* Example font size */
-        color: #333;                        /* Example font color */
+        font-family: 'Arial', sans-serif;
+        font-size: 18px;
+        color: #333;
     }
-
-
 
     /* Button Styling */
     .add-task-button {
@@ -131,36 +107,19 @@
         background-color: darkgreen;
     }
 
-    /* Style for the delete button */
-    .delete-btn {
-        background-color: red;           /* Red background for the delete button */
-        color: white;                    /* White text */
-        padding: 5px 10px;               /* Reduced padding for smaller button */
-        text-decoration: none;
-        font-size: 12px;                 /* Smaller text size */
-        border-radius: 5px;              /* Rounded corners */
-        border: none;                    /* Remove border */
-        cursor: pointer;                 /* Change cursor to pointer */
-        transition: background-color 0.3s ease;  /* Smooth hover effect */
-        margin-left: 10px;               /* Add space between the task and the button */
-    }
-
-    .delete-btn:hover {
-        background-color: darkred;       /* Darker red when hovering */
-    }
-
-    /* Styling for the edit button */
     .edit-btn {
         background-color: blue;
         color: white;
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
     }
-
     .edit-btn:hover {
         background-color: darkblue;
     }
-
-
-
 
     .quadrant-container {
         display: grid;
@@ -169,15 +128,15 @@
         width: 100%;
         height: 500px;
         margin: auto;
-        border: 3px solid #333; /* Outer border */
+        border: 3px solid #333;
     }
     .quadrant {
         display: flex;
-        flex-direction: column; /* Stack content vertically */
-        align-items: flex-start; /* Align content to the top */
-        justify-content: flex-start; /* Push everything to the top */
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
         text-align: left;
-        padding: 10px; /* Adds space so text isn't touching the edges */
+        padding: 10px;
         border: 1px solid #333;
         height: 100%;
         background-color: antiquewhite;
@@ -186,4 +145,3 @@
     .top-right { border-bottom: 3px solid #333; }
     .bottom-left { border-right: 3px solid #333; }
 </style>
-
