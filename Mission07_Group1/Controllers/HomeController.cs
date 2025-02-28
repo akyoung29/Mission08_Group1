@@ -25,16 +25,16 @@ namespace Mission07_Group.Controllers
             return View(toTask);
         }
 
-        // Add or Edit task get 
+        // Add task get 
         [HttpGet]
         public IActionResult AddEdit(int? id)
         {
             // Populate the dropdown list
-            ViewBag.Cateogry = new SelectList(_context.Category, "CategoryId", "CategoryName");
+            ViewBag.Cateogry = _context.Category;
 
             if (id == null)
             {
-                return View(new ToTask()); // If no id, return a new task need a task model
+                return View("AddEdit", new ToTask()); // If no id, return a new task need a task model
             }
 
             var task = _context.ToTask.Find(id);
@@ -46,27 +46,25 @@ namespace Mission07_Group.Controllers
             return View(task);
         }
 
-        // Add or Edit task post
+        // Add task post
         [HttpPost]
-        public IActionResult AddEdit(ToTask task)
+        public IActionResult AddEdit(ToTask response)
         {
             if (ModelState.IsValid)
             {
-                if (task.TaskId == 0)
-                {
-                    _context.ToTask.Add(task); // Add new task
-                }
-                else
-                {
-                    _context.ToTask.Update(task); // Update existing task
-                }
+                _context.ToTask.Add(response); //Add record to the database
                 _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            // Repopulate ViewBag in case of validation error
-            ViewBag.Category = new SelectList(_context.Category, "CategoryId", "CategoryName");
-            return View(task);
+                return View("Confirmation", response);
+            }
+            else //If it has invalid data
+            {
+                ViewBag.Category = _context.Category
+                .OrderBy(x => x.CategoryName)
+                .ToList();
+
+                return View(response);
+            }
         }
 
         // TaskDescription Edit Get
