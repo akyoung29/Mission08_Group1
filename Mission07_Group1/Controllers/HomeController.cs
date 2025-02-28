@@ -1,14 +1,16 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Mission08_Group1.Models;
+using SQLitePCL;
 
 namespace Mission07_Group.Controllers
 {
+
     public class HomeController : Controller
     {
-        private TasksContext _context;
+        private Mission08_Group1.Models.TasksContext _context;
 
-        public HomeController(TasksContext tasks)
+        public HomeController(Mission08_Group1.Models.TasksContext tasks)
         {
             _context = tasks;
         }
@@ -26,14 +28,14 @@ namespace Mission07_Group.Controllers
         public IActionResult TaskForm()
         {
             ViewBag.Categories = _context.Categories
-                .OrderBy(x => x.CategoryName)
+                .OrderBy(x => x.Category)
                 .ToList();
-            return View("TaskForm", new Form());
+            return View("TaskForm", new Task());
         }
 
         //Task Form Post
         [HttpPost]
-        public IActionResult TaskForm(Form response)
+        public IActionResult TaskForm(Task response)
         {
             if (ModelState.IsValid)
             {
@@ -45,7 +47,7 @@ namespace Mission07_Group.Controllers
             else //If it has invalid data
             {
                 ViewBag.Categories = _context.Categories
-                .OrderBy(x => x.CategoryName)
+                .OrderBy(x => x.Category)
                 .ToList();
 
                 return View(response);
@@ -59,7 +61,7 @@ namespace Mission07_Group.Controllers
                 .Single(x => x.TaskId == id);
 
             ViewBag.Categories = _context.Categories
-                .OrderBy(x => x.CategoryName)
+                .OrderBy(x => x.Category)
                 .ToList();
 
             return View("TaskForm", taskToEdit);
@@ -67,7 +69,7 @@ namespace Mission07_Group.Controllers
 
         //Task Edit Post
         [HttpPost]
-        public IActionResult Edit(Form form)
+        public IActionResult Edit(TasksContext form)
         {
             _context.Update(form);
             _context.SaveChanges();
@@ -87,7 +89,7 @@ namespace Mission07_Group.Controllers
 
         // Delete Task Post
         [HttpPost]
-        public IActionResult Delete(Form form)
+        public IActionResult Delete(Task form)
         {
             _context.Tasks.Remove(form);
             _context.SaveChanges();
