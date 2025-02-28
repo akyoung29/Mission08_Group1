@@ -20,16 +20,16 @@ namespace Mission07_Group.Controllers
         // Index Get
         public IActionResult Index()
         {
-            var tasks = _context.Tasks
+            var toTask = _context.ToTask
                 .ToList();
-            return View(tasks);
+            return View(toTask);
         }
 
         // Task Form Get
         [HttpGet]
         public IActionResult AddEdit()
         {
-            ViewBag.Categories = _context.Categories
+            ViewBag.Category = _context.Category
                 .OrderBy(x => x.CategoryName)
                 .ToList();
             return View("AddEdit", new ToTask());
@@ -41,14 +41,14 @@ namespace Mission07_Group.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Tasks.Add(response); //Add record to the database
+                _context.ToTask.Add(response); //Add record to the database
                 _context.SaveChanges();
 
                 return View("Confirmation", response);
             }
             else //If it has invalid data
             {
-                ViewBag.Categories = _context.Categories
+                ViewBag.Category = _context.Category
                 .OrderBy(x => x.CategoryName)
                 .ToList();
 
@@ -59,10 +59,10 @@ namespace Mission07_Group.Controllers
         // TaskDescription Edit Get
         public IActionResult Edit(int id)
         {
-            var taskToEdit = _context.Tasks
+            var taskToEdit = _context.ToTask
                 .Single(x => x.TaskId == id);
 
-            ViewBag.Categories = _context.Categories
+            ViewBag.Category = _context.Category
                 .OrderBy(x => x.CategoryName)
                 .ToList();
 
@@ -71,7 +71,7 @@ namespace Mission07_Group.Controllers
 
         //TaskDescription Edit Post
         [HttpPost]
-        public IActionResult Edit(Task form)
+        public IActionResult Edit(ToTask form)
         {
             _context.Update(form);
             _context.SaveChanges();
@@ -83,7 +83,7 @@ namespace Mission07_Group.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var taskToDelete = _context.Tasks
+            var taskToDelete = _context.ToTask
                 .Single(x => x.TaskId == id);
 
             return View("Delete", taskToDelete);
@@ -93,7 +93,7 @@ namespace Mission07_Group.Controllers
         [HttpPost]
         public IActionResult Delete(ToTask form)
         {
-            _context.Tasks.Remove(form);
+            _context.ToTask.Remove(form);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

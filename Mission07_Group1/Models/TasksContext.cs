@@ -6,8 +6,8 @@ namespace Mission08_Group1.Models
     public class TasksContext : DbContext
     {
 
-        public DbSet <Category> Categories { get; set; }
-        public DbSet<ToTask> Tasks { get; set; }
+        public DbSet <Category> Category { get; set; }
+        public DbSet<ToTask> ToTask { get; set; }
         public TasksContext(DbContextOptions<TasksContext> options) : base (options)
             {
             }
