@@ -2,5 +2,7 @@
 {
     public class Category
     {
+        public int CategoryId { get; set; }
+        public string Category { get; set; }
     }
 }
