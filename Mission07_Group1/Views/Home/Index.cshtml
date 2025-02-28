@@ -9,8 +9,6 @@
 <br/>
 <br/>
 
-<a href="#" class="add-task-button">+ Add Task</a>
-
 <!-- Quadrant Layout -->
 <div class="quadrant-container">
     <!-- Quadrant I: Important / Urgent -->
@@ -23,7 +21,7 @@
                     @task.TaskDescription
                     <div class="button-group">
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
-                        <button class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId" >Edit</button>
+                        <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId" >Edit</a>
                     </div>
                 </li>
             }
@@ -40,7 +38,7 @@
                     @task.TaskDescription
                     <div class="button-group">
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
-                        <button class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</button>
+                        <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</a>
                     </div>
                 </li>
             }
@@ -57,7 +55,7 @@
                     @task.TaskDescription
                     <div class="button-group">
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
-                        <button class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</button>
+                        <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</a>
                     </div>
                 </li>
             }
@@ -74,7 +72,7 @@
                     @task.TaskDescription
                     <div class="button-group">
                         <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@task.TaskId">Delete</a>
-                        <button class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</button>
+                        <a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@task.TaskId">Edit</a>
                     </div>
                 </li>
             }
@@ -89,36 +87,6 @@
         font-family: 'Arial', sans-serif;
         font-size: 18px;
         color: #333;
-    }
-
-    /* Button Styling */
-    .add-task-button {
-        position: absolute;
-        top: 80px;
-        right: 80px;
-        background-color: green;
-        color: white;
-        padding: 10px 20px;
-        text-decoration: none;
-        font-size: 16px;
-        border-radius: 5px;
-    }
-    .add-task-button:hover {
-        background-color: darkgreen;
-    }
-
-    .edit-btn {
-        background-color: blue;
-        color: white;
-        padding: 5px 10px;
-        font-size: 12px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    .edit-btn:hover {
-        background-color: darkblue;
     }
 
     .quadrant-container {

@@ -1,11 +1,10 @@
 <!--    Not sure which Model is using for AddEdit view page -->
 @model ToTask
 
-
 <div class="container">
-    <h2>@(Model?.TaskId == null ? "Add TaskDescription" : "Edit TaskDescription")</h2>
+    <h2> Task Description</h2>
 
-    <form asp-action="SaveTask" method="post" class="row g-3">
+    <form method="post" class="row g-3">
         <input type="hidden" asp-for="TaskId" />
 
         <!-- Task Name -->
@@ -34,11 +33,18 @@
         <!-- Category Selection -->
         <div class="col-md-6">
             <label class="form-label">Category:</label>
-            <select asp-for="CategoryId" asp-items="ViewBag.Category" class="form-select"></select>
+            <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Cateogry, "CategoryId", "CategoryName"))">
+                <option value="None">Select A Category</option>
+                @foreach (Category c in ViewBag.Cateogry)
+                {
+                    <option value="@c.CategoryId">@c.CategoryName</option>
+                }
+            </select>
         </div>
 
         <!-- Completed Checkbox -->
         <div class="col-md-12 form-check">
+
             <input type="hidden" name="Completed" value="0" /> <!-- Ensures unchecked sends 0 -->
             <input type="checkbox" asp-for="Completed" value="1" class="form-check-input" />
             <label class="form-check-label" >Completed</label>
@@ -47,7 +53,6 @@
         <!-- Buttons -->
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Save Task</button>
-            <a href="/Quadrants" class="btn btn-secondary">Back to Quadrants</a>
         </div>
     </form>
 </div>
