@@ -4,7 +4,7 @@
 <div class="container">
     <h2> Task Description</h2>
 
-    <form asp-controller="Home" asp-action="@(Model.TaskId == 0 ? "AddEdit" : "Edit")" method="post" class="row g-3">
+    <form method="post" class="row g-3">
         <input type="hidden" asp-for="TaskId" />
 
         <!-- Task Name -->
@@ -44,11 +44,20 @@
 
         <!-- Completed Checkbox -->
         <div class="col-md-12 form-check">
-
-            <input type="hidden" name="Completed" value="0" />
-            <input type="checkbox" name="Completed" value="1" class="form-check-input" />
-            <label class="form-check-label">Completed</label>
+            @{
+                bool isChecked = Model != null && Model.Completed == 1;
+            }
+            <input type="hidden" asp-for="Completed" value="0" />
+            <input type="checkbox" id="CompletedCheckbox" class="form-check-input" @(isChecked ? "checked" : "") onclick="updateCompletedValue()" />
+            <label class="form-check-label" for="CompletedCheckbox">Completed</label>
         </div>
+
+        <script>
+            function updateCompletedValue() {
+                document.getElementById('Completed').value =
+                    document.getElementById('CompletedCheckbox').checked ? '1' : '0';
+            }
+        </script>
 
         <!-- Buttons -->
         <div class="col-12">
