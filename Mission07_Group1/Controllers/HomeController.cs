@@ -30,7 +30,7 @@ namespace Mission07_Group.Controllers
         public IActionResult AddEdit(int? id)
         {
             // Populate the dropdown list
-            ViewBag.Cateogry = _context.Category;
+            ViewBag.Category = _context.Category;
 
             if (id == null)
             {
