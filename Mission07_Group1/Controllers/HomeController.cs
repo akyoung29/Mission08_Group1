@@ -31,6 +31,8 @@ namespace Mission07_Group.Controllers
         {
             // Populate the dropdown list
             ViewBag.Cateogry = _context.Category;
+                //.OrderBy(x => x.CategoryName)
+                //.ToList();
 
             if (id == null)
             {
@@ -73,9 +75,9 @@ namespace Mission07_Group.Controllers
             var taskToEdit = _context.ToTask
                 .Single(x => x.TaskId == id);
 
-            ViewBag.Category = _context.Category
-                .OrderBy(x => x.CategoryName)
-                .ToList();
+            ViewBag.Category = _context.Category;
+                //.OrderBy(x => x.CategoryName)
+                //.ToList();
                 
             return View("AddEdit", taskToEdit);
         }
