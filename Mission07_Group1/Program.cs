@@ -11,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TasksContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString(name: "connectiondb")));
 
+builder.Services.AddScoped<iTaskRepo, EfTasksRepo>();
+
 
 var app = builder.Build();
 

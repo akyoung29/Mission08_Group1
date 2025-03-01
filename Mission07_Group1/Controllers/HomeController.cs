@@ -7,21 +7,19 @@ using SQLitePCL;
 
 namespace Mission07_Group.Controllers
 {
-
     public class HomeController : Controller
     {
-        private Mission08_Group1.Models.TasksContext _context;
+        private iTaskRepo _repo;
 
-        public HomeController(Mission08_Group1.Models.TasksContext temp)
+        public HomeController(iTaskRepo temp)
         {
-            _context = temp;
+            _repo = temp;
         }
 
         // Index Get
         public IActionResult Index()
         {
-            var toTask = _context.ToTask
-                .ToList();
+            var toTask = _repo.Tasks.ToList();
             return View(toTask);
         }
 
@@ -30,14 +28,14 @@ namespace Mission07_Group.Controllers
         public IActionResult AddEdit(int? id)
         {
             // Populate the dropdown list
-            ViewBag.Category = _context.Category;
+            ViewBag.Category = _repo.Categories;
 
             if (id == null)
             {
-                return View("AddEdit", new ToTask()); // If no id, return a new task need a task model
+                return View("AddEdit", new ToTask()); // If no id, return a new task
             }
 
-            var task = _context.ToTask.Find(id);
+            var task = _repo.Tasks.Find(t => t.TaskId == id);
             if (task == null)
             {
                 return NotFound();
@@ -52,16 +50,16 @@ namespace Mission07_Group.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.ToTask.Add(response); //Add record to the database
-                _context.SaveChanges();
+                _repo.AddTask(response); // Correct method for adding tasks
+                _repo.SaveChanges(); // Save changes
 
                 return View("Confirmation", response);
             }
-            else //If it has invalid data
+            else // If it has invalid data
             {
-                ViewBag.Category = _context.Category
-                .OrderBy(x => x.CategoryName)
-                .ToList();
+                ViewBag.Category = _repo.Categories
+                    .OrderBy(x => x.CategoryName)
+                    .ToList();
 
                 return View(response);
             }
@@ -70,22 +68,18 @@ namespace Mission07_Group.Controllers
         // TaskDescription Edit Get
         public IActionResult Edit(int id)
         {
-            var taskToEdit = _context.ToTask
-                .Single(x => x.TaskId == id);
+            var taskToEdit = _repo.Tasks.Single(x => x.TaskId == id);
 
-            ViewBag.Category = _context.Category;
-                //.OrderBy(x => x.CategoryName)
-                //.ToList();
-
+            ViewBag.Category = _repo.Categories;
             return View("AddEdit", taskToEdit);
         }
 
-        //TaskDescription Edit Post
+        // TaskDescription Edit Post
         [HttpPost]
         public IActionResult Edit(ToTask form)
         {
-            _context.Update(form);
-            _context.SaveChanges();
+            _repo.UpdateTask(form); // Corrected method call
+            _repo.SaveChanges(); // Save the changes
 
             return RedirectToAction("Index");
         }
@@ -94,9 +88,7 @@ namespace Mission07_Group.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var taskToDelete = _context.ToTask
-                .Single(x => x.TaskId == id);
-
+            var taskToDelete = _repo.Tasks.Single(x => x.TaskId == id);
             return View("Delete", taskToDelete);
         }
 
@@ -104,8 +96,8 @@ namespace Mission07_Group.Controllers
         [HttpPost]
         public IActionResult Delete(ToTask form)
         {
-            _context.ToTask.Remove(form);
-            _context.SaveChanges();
+            _repo.DeleteTask(form); // Correct method for deleting
+            _repo.SaveChanges(); // Save changes
             return RedirectToAction("Index");
         }
     }
